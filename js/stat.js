@@ -8,13 +8,10 @@ var CLOUD_GAP = 10;
 var BAR_GAP = 50;
 var TEXT_Y = 260;
 var TEXTBAR_X = 125;
-var BAR_Y = 90;
-var RESULT_Y = 85;
+var TEXTBAR_Y = 40;
+var BAR_Y = 240;
 var BAR_WIDTH = 40;
-var BAR_HEIGHT = 150;
-var bar = {
-  BAR_PRIMARY_COLOR: 'rgba(255, 0, 0, 1)'
-};
+var BAR_HEIGHT = -150;
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.font = '16px PT Mono';
@@ -35,28 +32,36 @@ var getMaxElement = function (arr) {
 };
 
 var getBlueColor = function () {
-  var blueColor = 'rgba(0, 0, 255, ' + (Math.random() * (1 - 0.25) + 0.25) + ')';
+  var blueColor = 'rgba(0, 0, 255, ' + Math.random();
   return blueColor;
+};
+
+var writeText = function (ctx) {
+  ctx.fillStyle = '#000';
+  ctx.fillText('Ура вы победили!', TEXTBAR_X, TEXTBAR_Y);
+  ctx.fillText('Cписок результатов:', TEXTBAR_X, TEXTBAR_Y + 20);
 };
 
 window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, CLOUD_X + CLOUD_GAP, CLOUD_Y + CLOUD_GAP, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
-  ctx.fillStyle = '#000';
-  ctx.fillText('Ура вы победили!', TEXTBAR_X, 40);
-  ctx.fillText('Cписок результатов:', TEXTBAR_X, 60);
+  writeText(ctx);
 
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < names.length; i++) {
-    ctx.fillStyle = '#000';
-    ctx.fillText(Math.round(times[i]), TEXTBAR_X + (BAR_WIDTH + BAR_GAP) * i, RESULT_Y, (BAR_HEIGHT * times[i]) / maxTime);
+
+    var positionX = TEXTBAR_X + (BAR_WIDTH + BAR_GAP) * i;
+    var randomHeight = (BAR_HEIGHT * times[i]) / maxTime;
 
     ctx.fillStyle = '#000';
-    ctx.fillText(names[i], TEXTBAR_X + (BAR_WIDTH + BAR_GAP) * i, TEXT_Y);
-    ctx.fillStyle = names[i] === 'Вы' ? bar.BAR_PRIMARY_COLOR : getBlueColor();
-    ctx.fillRect(TEXTBAR_X + (BAR_WIDTH + BAR_GAP) * i, BAR_Y, BAR_WIDTH, (BAR_HEIGHT * times[i]) / maxTime);
+    ctx.fillText(Math.round(times[i]), positionX, (BAR_Y - 5) + randomHeight);
+
+    ctx.fillStyle = '#000';
+    ctx.fillText(names[i], positionX, TEXT_Y);
+    ctx.fillStyle = names[i] === 'Вы' ? 'rgba(255, 0, 0, 1)' : getBlueColor();
+    ctx.fillRect(positionX, BAR_Y, BAR_WIDTH, randomHeight);
   }
 };
 
