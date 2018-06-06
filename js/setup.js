@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 document.querySelector('.setup').classList.remove('hidden');
 document.querySelector('.setup-similar').classList.remove('hidden');
@@ -40,4 +40,4 @@ for (var i = 0; i < 4; i++) {
   wizardElement.querySelector('.setup-similar-label').textContent = wizards[i].name;
 
   similarListElement.appendChild(wizardElement);
-};
+}
