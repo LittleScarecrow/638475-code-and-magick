@@ -15,16 +15,16 @@ var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
-var getWizardCharacter = function() {
+var getWizardCharacter = function () {
   for (var i = 0; i < 4; i++) {
     var characterWizard = {
-      name: WIZARD_NAMES[getRandomNumber(0, WIZARD_NAMES.length)] + WIZARD_SURNAMES[getRandomNumber(0, WIZARD_SURNAMES.length )],
+      name: WIZARD_NAMES[getRandomNumber(0, WIZARD_NAMES.length)] + WIZARD_SURNAMES[getRandomNumber(0, WIZARD_SURNAMES.length)],
       coatColor: COAT_COLOR[getRandomNumber(0, COAT_COLOR.length)],
       eyesColor: EYES_COLOR[getRandomNumber(0, EYES_COLOR.length)]
-    }
+    };
     wizards.push(characterWizard);
   }
-}
+};
 
 for (var i = 0; i < 4; i++) {
   var wizards = [];
@@ -35,4 +35,3 @@ for (var i = 0; i < 4; i++) {
   wizardElement.querySelector('.wizard-eyes').style.fill = wizards[i].eyesColor;
   similarListElement.appendChild(wizardElement);
 }
-
